@@ -40,4 +40,12 @@ mod tests {
         assert_eq!(final_floor, 0);
         assert_eq!(first_basement_position, None);
     }
+
+    #[test]
+    fn test_day1_input() {
+        let input = fs::read_to_string("input.txt").expect("Failed to read input file.");
+        let (final_floor, first_basement_position) = day01_analyze_floors(&input);
+        assert_eq!(final_floor, 138);
+        assert_eq!(first_basement_position, Some(1771));
+    }
 }
