@@ -22,10 +22,29 @@ fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
 fn main() {
     println!("AOC 2015 day 1");
 
-    let input = fs::read_to_string("input.txt").expect("Failed to read input file.");
+    let mut input = fs::read_to_string("input_01.txt").expect("Failed to read input file.");
     let (final_floor, first_basement_pos) = day01_analyze_floors(&input);
     println!("Final floor: {}", final_floor);
     println!("First basement position: {}", first_basement_pos.unwrap());
+
+
+    println!("AOC 2015 day 2");
+
+    input = fs::read_to_string("input_02.txt").expect("Failed to read input file.");
+    let mut wrapping_paper = 0;
+    for line in input.lines() {
+        let present: Vec<u32> = line.split('x').map(|v| v.parse::<u32>().unwrap()).collect();
+
+        let l = present[0];
+        let w = present[1];
+        let h  = present[2];
+
+        let sides = [l*w, l*h, w*h];
+        wrapping_paper += 2*sides[0] + 2*sides[1] + 2*sides[2] + sides.iter().min().unwrap();
+
+    }
+    println!("Wrapping paper needed: {}", wrapping_paper);
+
 
 }
 
@@ -43,7 +62,7 @@ mod tests {
 
     #[test]
     fn test_day1_input() {
-        let input = fs::read_to_string("input.txt").expect("Failed to read input file.");
+        let input = fs::read_to_string("input_01.txt").expect("Failed to read input file.");
         let (final_floor, first_basement_position) = day01_analyze_floors(&input);
         assert_eq!(final_floor, 138);
         assert_eq!(first_basement_position, Some(1771));
