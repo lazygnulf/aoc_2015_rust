@@ -32,6 +32,7 @@ fn main() {
 
     input = fs::read_to_string("input_02.txt").expect("Failed to read input file.");
     let mut wrapping_paper = 0;
+    let mut ribbon = 0;
     for line in input.lines() {
         let present: Vec<u32> = line.split('x').map(|v| v.parse::<u32>().unwrap()).collect();
 
@@ -42,8 +43,13 @@ fn main() {
         let sides = [l*w, l*h, w*h];
         wrapping_paper += 2*sides[0] + 2*sides[1] + 2*sides[2] + sides.iter().min().unwrap();
 
+        let perimeters = [2*(l+w), 2*(l+h), 2*(w+h)];
+        ribbon += perimeters.iter().min().unwrap() + l*w*h;
+
+
     }
     println!("Wrapping paper needed: {}", wrapping_paper);
+    println!("Ribbon needed: {}", ribbon);
 
 
 }
