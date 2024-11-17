@@ -16,4 +16,21 @@ fn main() {
 
     println!("Final floor: {}", floor);
 
+    let input2 = "()())";
+    floor = 0;
+    let mut pos = 0;
+    for (i, ch) in input.chars().enumerate() {
+        floor += match ch {
+            '(' => 1,
+            ')' => -1,
+            _ => 0,
+        };
+        if floor == -1 {
+            pos = i+1;
+            break;
+        }
+    }
+
+    println!("Basement position: {}", pos);
+
 }
