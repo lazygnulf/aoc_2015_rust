@@ -28,3 +28,16 @@ fn main() {
     println!("First basement position: {}", first_basement_pos.unwrap());
 
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_example_1() {
+        let input = "(())";
+        let (final_floor, first_basement_position) = day01_analyze_floors(input);
+        assert_eq!(final_floor, 0);
+        assert_eq!(first_basement_position, None);
+    }
+}
