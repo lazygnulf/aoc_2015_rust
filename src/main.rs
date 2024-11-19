@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::fs;
 
 fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
@@ -17,6 +18,16 @@ fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
     }
 
     (floor, first_basement_pos)
+}
+
+fn move_pos(pos: (i32, i32), dir: char) -> (i32, i32) {
+    match dir {
+        '>' => (pos.0+1, pos.1),
+        '<' => (pos.0-1, pos.1),
+        '^' => (pos.0, pos.1-1),
+        'v' => (pos.0, pos.1+1),
+        _ => pos 
+     }
 }
 
 fn main() {
@@ -50,6 +61,37 @@ fn main() {
     }
     println!("Wrapping paper needed: {}", wrapping_paper);
     println!("Ribbon needed: {}", ribbon);
+
+
+    println!("AOC 2015 day 3");
+
+    input = fs::read_to_string("input_03.txt").expect("Failed to read input file.");
+    let mut house_visited = HashMap::new();
+    let mut pos = (0, 0);
+    let mut robo = (0, 0);
+    let mut robo_turn = false;
+    house_visited.insert(pos, 2);
+
+    for ch in input.chars() {
+        if robo_turn {
+            robo = move_pos(robo, ch);
+            match house_visited.get(&robo) {
+                Some(x) => house_visited.insert(robo, x+1),
+                None => house_visited.insert(robo, 1)
+            };
+            
+        }
+        else {
+            pos = move_pos(pos, ch);
+            match house_visited.get(&pos) {
+                Some(x) => house_visited.insert(pos, x+1),
+                None => house_visited.insert(pos, 1)
+            };
+        }
+        robo_turn = !robo_turn;
+    }
+
+    println!("Houses delivered: {}", house_visited.len());
 
 
 }
