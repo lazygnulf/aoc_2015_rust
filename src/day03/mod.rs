@@ -3,10 +3,11 @@ use std::fs;
 
 pub fn day03_part1() {
     println!("AOC 2015 day 3 - part 1");
+    println!("Houses delivered: {}", solve_part_1(&read_input()));
+}
 
-    let input = fs::read_to_string("input_03.txt").expect("Failed to read input file.");
-
-    println!("Houses delivered: {}", solve_part_1(&input));
+fn read_input() -> String {
+    fs::read_to_string("input_03.txt").expect("Failed to read input file.")
 }
 
 fn solve_part_1(input: &str) -> usize {
@@ -27,10 +28,7 @@ fn solve_part_1(input: &str) -> usize {
 
 pub fn day03_part2() {
     println!("AOC 2015 day 3 - part 2");
-
-    let input = fs::read_to_string("input_03.txt").expect("Failed to read input file.");
-
-    println!("Houses delivered: {}", solve_part_2(&input));
+    println!("Houses delivered: {}", solve_part_2(&read_input()));
 }
 
 fn solve_part_2(input: &str) -> usize {
@@ -76,13 +74,11 @@ mod tests {
 
     #[test]
     fn test_part1_input() {
-        let input = fs::read_to_string("input_03.txt").expect("Failed to read input file.");
-        assert_eq!(solve_part_1(&input), 2081);
+        assert_eq!(solve_part_1(&read_input()), 2081);
     }
 
     #[test]
     fn test_part2_input() {
-        let input = fs::read_to_string("input_03.txt").expect("Failed to read input file.");
-        assert_eq!(solve_part_2(&input), 2341);
+        assert_eq!(solve_part_2(&read_input()), 2341);
     }
 }
