@@ -55,6 +55,7 @@ fn main() {
     day03::part2();
 
     day04::part1();
+    day04::part2();
 }
 
 #[cfg(test)]
