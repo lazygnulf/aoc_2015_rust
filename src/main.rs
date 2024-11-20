@@ -1,6 +1,7 @@
 use std::fs;
 
 mod day03;
+mod day04;
 
 fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
     let mut floor = 0;
@@ -50,8 +51,10 @@ fn main() {
     println!("Wrapping paper needed: {}", wrapping_paper);
     println!("Ribbon needed: {}", ribbon);
 
-    day03::day03_part1();
-    day03::day03_part2();
+    day03::part1();
+    day03::part2();
+
+    day04::part1();
 }
 
 #[cfg(test)]

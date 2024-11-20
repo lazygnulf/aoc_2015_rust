@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::fs;
 
-pub fn day03_part1() {
+pub fn part1() {
     println!("AOC 2015 day 3 - part 1");
     println!("Houses delivered: {}", solve_part_1(&read_input()));
 }
@@ -26,7 +26,7 @@ fn solve_part_1(input: &str) -> usize {
     house_visited.len()
 }
 
-pub fn day03_part2() {
+pub fn part2() {
     println!("AOC 2015 day 3 - part 2");
     println!("Houses delivered: {}", solve_part_2(&read_input()));
 }
