@@ -8,6 +8,8 @@ pub fn part1() {
 
 pub fn part2() {
     println!("AOC 2015 day 6 - part 2");
+    let instructions = parse_input(&read_input());
+    println!("Total brightness: {}", exec_instructions2(&instructions));
 }
 
 fn read_input() -> String {
@@ -32,6 +34,28 @@ fn exec_instructions(instructions: &Vec<Instruction>) -> usize {
     grid.iter()
         .map(|row| row.iter().filter(|&&v| v).count())
         .sum()
+}
+
+fn exec_instructions2(instructions: &Vec<Instruction>) -> usize {
+    let mut grid = vec![vec![0usize; 1000]; 1000];
+
+    for instr in instructions {
+        for x in instr.x1..=instr.x2 {
+            for y in instr.y1..=instr.y2 {
+                match instr.cmd {
+                    Command::TurnOn => grid[x][y] += 1,
+                    Command::TurnOff => {
+                        if grid[x][y] > 0 {
+                            grid[x][y] -= 1
+                        }
+                    }
+                    Command::Toogle => grid[x][y] += 2,
+                }
+            }
+        }
+    }
+
+    grid.iter().map(|row| row.iter().sum::<usize>()).sum()
 }
 
 fn parse_input(input: &str) -> Vec<Instruction> {
@@ -95,5 +119,10 @@ mod tests {
     #[test]
     fn test_part1_with_input() {
         assert_eq!(exec_instructions(&parse_input(&read_input())), 569999);
+    }
+
+    #[test]
+    fn test_part2_with_input() {
+        assert_eq!(exec_instructions2(&parse_input(&read_input())), 17836115);
     }
 }
