@@ -4,6 +4,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 
 fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
     let mut floor = 0;
@@ -64,6 +65,9 @@ fn main() {
 
     day06::part1();
     day06::part2();
+
+    day07::part1();
+    day07::part2();
 }
 
 #[cfg(test)]
