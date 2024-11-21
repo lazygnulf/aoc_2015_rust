@@ -11,14 +11,8 @@ fn read_input() -> String {
     fs::read_to_string("input_05.txt").expect("Failed to read input file.")
 }
 
-fn count_nice_strings(input: &str) -> u32 {
-    let mut count = 0;
-    for line in input.lines() {
-        if is_nice(line) {
-            count += 1;
-        }
-    }
-    count
+fn count_nice_strings(input: &str) -> usize {
+    input.lines().filter(|line| is_nice(line)).count()
 }
 
 fn is_nice(line: &str) -> bool {
@@ -38,10 +32,18 @@ fn is_nice(line: &str) -> bool {
         last_char = ch;
     }
 
-    let contains_forbidden =
-        line.contains("ab") || line.contains("cd") || line.contains("pq") || line.contains("xy");
+    if num_vowels < 3 || !has_double_letter {
+        return false;
+    }
 
-    num_vowels >= 3 && has_double_letter && !contains_forbidden
+    let forbidden = ["ab", "cd", "pq", "xy"];
+    for s in forbidden {
+        if line.contains(s) {
+            return false;
+        }
+    }
+
+    true
 }
 
 fn is_vowel(ch: char) -> bool {
