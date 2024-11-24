@@ -6,6 +6,7 @@ mod day05;
 mod day06;
 mod day07;
 mod day08;
+mod day09;
 
 fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
     let mut floor = 0;
@@ -55,7 +56,6 @@ fn main() {
     println!("Wrapping paper needed: {}", wrapping_paper);
     println!("Ribbon needed: {}", ribbon);
 
-    /*
     day03::part1();
     day03::part2();
 
@@ -70,9 +70,12 @@ fn main() {
 
     day07::part1();
     day07::part2();
-    */
+
     day08::part1();
     day08::part2();
+
+    day09::part1();
+    day09::part2();
 }
 
 #[cfg(test)]
