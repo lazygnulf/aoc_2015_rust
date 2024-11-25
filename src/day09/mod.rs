@@ -1,30 +1,29 @@
-use std::{collections::HashMap, fs, ops::Index, usize};
+use std::{collections::HashMap, fs};
 
 use itertools::Itertools;
 
 pub fn part1() {
     println!("AOC 2015 day 9 - part 1");
-    println!("{}", solve_part1(&read_input()));
+    println!("{}", solve(&read_input()).0);
 }
 
 pub fn part2() {
     println!("AOC 2015 day 9 - part 2");
-    println!("{}", solve_part2(&read_input()));
+    println!("{}", solve(&read_input()).1);
 }
 
-fn solve_part1(input: &str) -> usize {
+fn solve(input: &str) -> (usize, usize) {
     let (locations, distances) = parse_input(input);
-    println!("{:?}\n{:?}", locations, distances);
 
     let mut location_vec = vec![0usize; locations.len()];
     for i in 0..locations.len() {
         location_vec[i] = i;
     }
 
+    // brute force ;-)
     let mut shortest_tour_len = usize::MAX;
+    let mut longest_tour_len = usize::MIN;
     for tour in location_vec.iter().permutations(location_vec.len()) {
-        println!("{:?}", tour);
-
         let mut tour_len: usize = 0;
         for loc in tour.windows(2) {
             tour_len += distances[*loc[0]][*loc[1]];
@@ -32,13 +31,12 @@ fn solve_part1(input: &str) -> usize {
         if shortest_tour_len > tour_len {
             shortest_tour_len = tour_len;
         }
+        if longest_tour_len < tour_len {
+            longest_tour_len = tour_len;
+        }
     }
 
-    shortest_tour_len
-}
-
-fn solve_part2(input: &str) -> usize {
-    42
+    (shortest_tour_len, longest_tour_len)
 }
 
 fn parse_input(input: &str) -> (HashMap<&str, usize>, Vec<Vec<usize>>) {
@@ -94,14 +92,16 @@ mod tests {
             London to Belfast = 518
             Dublin to Belfast = 141"#;
 
-        assert_eq!(solve_part1(input), 605);
+        assert_eq!(solve(input).0, 605);
     }
 
     #[test]
     fn test_part1_with_input() {
-        assert_eq!(solve_part1(&read_input()), 207);
+        assert_eq!(solve(&read_input()).0, 207);
     }
 
     #[test]
-    fn test_part2_with_input() {}
+    fn test_part2_with_input() {
+        assert_eq!(solve(&read_input()).1, 804);
+    }
 }
