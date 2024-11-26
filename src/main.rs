@@ -1,5 +1,8 @@
-use std::fs;
+use std::{env, fs};
 
+mod util;
+
+mod day01;
 mod day03;
 mod day04;
 mod day05;
@@ -7,37 +10,12 @@ mod day06;
 mod day07;
 mod day08;
 mod day09;
-
-fn day01_analyze_floors(input: &str) -> (i32, Option<usize>) {
-    let mut floor = 0;
-    let mut first_basement_pos = None;
-
-    for (i, ch) in input.chars().enumerate() {
-        floor += match ch {
-            '(' => 1,
-            ')' => -1,
-            _ => 0,
-        };
-
-        if floor == -1 && first_basement_pos == None {
-            first_basement_pos = Some(i + 1);
-        }
-    }
-
-    (floor, first_basement_pos)
-}
+mod day10;
 
 fn main() {
-    println!("AOC 2015 day 1");
-
-    let mut input = fs::read_to_string("input_01.txt").expect("Failed to read input file.");
-    let (final_floor, first_basement_pos) = day01_analyze_floors(&input);
-    println!("Final floor: {}", final_floor);
-    println!("First basement position: {}", first_basement_pos.unwrap());
-
     println!("AOC 2015 day 2");
 
-    input = fs::read_to_string("input_02.txt").expect("Failed to read input file.");
+    let input = fs::read_to_string("input_02.txt").expect("Failed to read input file.");
     let mut wrapping_paper = 0;
     let mut ribbon = 0;
     for line in input.lines() {
@@ -56,45 +34,26 @@ fn main() {
     println!("Wrapping paper needed: {}", wrapping_paper);
     println!("Ribbon needed: {}", ribbon);
 
-    day03::part1();
-    day03::part2();
+    // NEW
 
-    day04::part1();
-    day04::part2();
+    let mut day: u32 = 1;
 
-    day05::part1();
-    day05::part2();
+    let args: Vec<String> = env::args().collect();
 
-    day06::part1();
-    day06::part2();
-
-    day07::part1();
-    day07::part2();
-
-    day08::part1();
-    day08::part2();
-
-    day09::part1();
-    day09::part2();
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_example_1() {
-        let input = "(())";
-        let (final_floor, first_basement_position) = day01_analyze_floors(input);
-        assert_eq!(final_floor, 0);
-        assert_eq!(first_basement_position, None);
+    if args.len() == 2 {
+        day = args[1].parse::<u32>().expect("Invalid day format.");
+    } else {
+        println!("Usage: {} <day>", args[0])
     }
 
-    #[test]
-    fn test_day1_input() {
-        let input = fs::read_to_string("input_01.txt").expect("Failed to read input file.");
-        let (final_floor, first_basement_position) = day01_analyze_floors(&input);
-        assert_eq!(final_floor, 138);
-        assert_eq!(first_basement_position, Some(1771));
+    println!("Advent of Code day {}", day);
+
+    match day {
+        1 => day01::solve(),
+        3 => {
+            day03::part1();
+            day03::part2();
+        }
+        _ => println!("No solution for day {}.", day),
     }
 }
