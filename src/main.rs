@@ -29,10 +29,7 @@ fn main() {
     match day {
         1 => day01::solve(),
         2 => day02::solve(),
-        3 => {
-            day03::part1();
-            day03::part2();
-        }
+        3 => day03::solve(),
         4 => {
             day04::part1();
             day04::part2();
@@ -57,10 +54,7 @@ fn main() {
             day09::part1();
             day09::part2();
         }
-        10 => {
-            day10::part1();
-            day10::part2();
-        }
+        10 => day10::solve(),
         _ => println!("No solution for day {}.", day),
     }
 }

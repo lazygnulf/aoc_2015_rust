@@ -1,13 +1,11 @@
 use std::collections::HashMap;
-use std::fs;
 
-pub fn part1() {
-    println!("AOC 2015 day 3 - part 1");
-    println!("Houses delivered: {}", solve_part_1(&read_input()));
-}
+use crate::util::read_input;
 
-fn read_input() -> String {
-    fs::read_to_string("input_03.txt").expect("Failed to read input file.")
+pub fn solve() {
+    let input = read_input(3);
+    println!("Part 1: {}", solve_part_1(&input));
+    println!("Part 2: {}", solve_part_2(&input));
 }
 
 fn solve_part_1(input: &str) -> usize {
@@ -24,11 +22,6 @@ fn solve_part_1(input: &str) -> usize {
     }
 
     house_visited.len()
-}
-
-pub fn part2() {
-    println!("AOC 2015 day 3 - part 2");
-    println!("Houses delivered: {}", solve_part_2(&read_input()));
 }
 
 fn solve_part_2(input: &str) -> usize {
@@ -74,11 +67,11 @@ mod tests {
 
     #[test]
     fn test_part1_input() {
-        assert_eq!(solve_part_1(&read_input()), 2081);
+        assert_eq!(solve_part_1(&read_input(3)), 2081);
     }
 
     #[test]
     fn test_part2_input() {
-        assert_eq!(solve_part_2(&read_input()), 2341);
+        assert_eq!(solve_part_2(&read_input(3)), 2341);
     }
 }
